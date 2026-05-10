@@ -32,7 +32,7 @@ function renderHabits() {
 
     if (habits.length === 0) {
         habitList.innerHTML = `
-            <div style="text-align: center; padding: 4rem; background: white; border-radius: 24px; border: 2px dashed #e2e8f0;">
+            <div style="text-align: center; padding: 4rem; background: var(--bg-surface); border-radius: 24px; border: 2px dashed var(--border); color: var(--text-main);">
                 <p style="color: var(--text-muted); margin-bottom: 1.5rem;">No habits added yet. Start by adding your first habit!</p>
                 <button class="btn btn-primary" onclick="document.getElementById('modalOverlay').style.display = 'flex'">
                     <i data-lucide="plus"></i> Add Your First Habit

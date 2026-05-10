@@ -1,13 +1,14 @@
-/* Dashboard Specific Styles */
+/* Dashboard Specific Styles - Dark Theme */
 .dashboard {
-    padding: 40px 0;
+    padding: 60px 0;
     min-height: calc(100vh - 80px);
+    background-color: var(--bg-dark);
 }
 
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 32px;
+    gap: 40px;
 }
 
 @media (max-width: 992px) {
@@ -17,79 +18,85 @@
 }
 
 .card {
-    background: var(--bg-white);
+    background: var(--bg-surface);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 32px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow);
     margin-bottom: 24px;
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .habit-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
-    background: var(--bg-light);
+    padding: 20px;
+    background: var(--bg-dark);
     border-radius: var(--radius);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
     transition: var(--transition);
 }
 
 .habit-item:hover {
-    transform: translateX(4px);
-    border-left: 4px solid var(--primary);
+    transform: translateX(6px);
+    border-color: var(--primary);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow);
 }
 
 .habit-info {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .habit-check {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid var(--primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
+    background: var(--bg-dark);
 }
 
 .habit-check.completed {
     background: var(--primary);
+    border-color: var(--primary);
     color: white;
+    box-shadow: 0 0 15px rgba(129, 140, 248, 0.4);
 }
 
 .streak-badge {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 4px 12px;
-    background: rgba(99, 102, 241, 0.1);
+    gap: 6px;
+    padding: 6px 16px;
+    background: rgba(129, 140, 248, 0.1);
     color: var(--primary);
-    border-radius: 20px;
+    border-radius: 24px;
     font-size: 0.875rem;
     font-weight: 600;
+    border: 1px solid rgba(129, 140, 248, 0.2);
 }
 
 /* Progress Ring */
 .progress-container {
     position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
 }
 
 .progress-ring {
@@ -97,7 +104,7 @@
 }
 
 .progress-ring-circle {
-    transition: stroke-dashoffset 0.35s;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: 50% 50%;
 }
 
@@ -111,37 +118,40 @@
 
 .progress-text span {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--text-main);
+    letter-spacing: -1px;
 }
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
 .form-input {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
+    background: var(--bg-dark);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    color: var(--text-main);
     font-family: inherit;
     outline: none;
-    background-color: var(--bg-light);
-    color: var(--text-main);
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+    transition: var(--transition);
 }
 
 .form-input:focus {
     border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
 }
 
 /* Weekly Chart */
@@ -149,31 +159,40 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    height: 150px;
-    padding-top: 20px;
+    height: 180px;
+    padding-top: 30px;
+    gap: 12px;
 }
 
 .chart-bar-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     flex: 1;
 }
 
 .chart-bar {
-    width: 12px;
-    background: var(--primary);
-    border-radius: 6px 6px 0 0;
-    transition: height 0.5s ease;
-    opacity: 0.3;
+    width: 100%;
+    max-width: 16px;
+    background: linear-gradient(to top, var(--primary), var(--secondary));
+    border-radius: 8px;
+    transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.2;
 }
 
 .chart-bar.active {
     opacity: 1;
+    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
 }
 
 .chart-label {
     font-size: 0.75rem;
     color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Modal */
+#add-habit-modal {
+    backdrop-filter: blur(8px);
 }
