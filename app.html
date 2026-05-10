@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | HabitFlow</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background-color: #f1f5f9;">
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i data-lucide="zap"></i> HabitFlow
+            </a>
+            <div class="nav-links">
+                <button class="btn btn-primary" id="addHabitBtn">
+                    <i data-lucide="plus"></i> Add Habit
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container section-padding">
+        <div class="app-header">
+            <h1 id="greeting">Good morning!</h1>
+            <p style="color: var(--text-muted);">Keep the streak alive 🔥</p>
+        </div>
+
+        <div class="app-grid">
+            <!-- Habit List -->
+            <div id="habitList">
+                <!-- Habits will be injected here -->
+            </div>
+
+            <!-- Sidebar -->
+            <aside>
+                <div class="sidebar-card">
+                    <h3 style="margin-bottom: 1.5rem; text-align: center;">Daily Progress</h3>
+                    <div class="progress-circle">
+                        <svg width="150" height="150">
+                            <circle class="bg" cx="75" cy="75" r="70"></circle>
+                            <circle class="bar" id="progressCircle" cx="75" cy="75" r="70"></circle>
+                        </svg>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                    <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;" id="progressSubtext">
+                        0 of 0 habits completed
+                    </p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 style="margin-bottom: 1rem;">Weekly Overview</h3>
+                    <div class="chart-container" id="weeklyChart">
+                        <!-- Chart bars will be injected here -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 style="margin-bottom: 1.5rem;">Add New Habit</h2>
+            <form id="habitForm">
+                <div class="form-group">
+                    <label for="habitName">Habit Name</label>
+                    <input type="text" id="habitName" placeholder="e.g. Drink Water" required>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-outline" id="closeModal" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Create Habit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
