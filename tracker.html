@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitFlow | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tracker.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background-color: #f1f5f9;">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="zap"></i>
+                Habit<span>Flow</span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span id="current-date" style="font-weight: 600; color: var(--text-muted);"></span>
+                <a href="index.html" style="font-size: 0.875rem; color: var(--text-muted);">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard container">
+        <header style="margin-bottom: 40px;">
+            <h1 id="greeting" style="font-size: 2rem; margin-bottom: 8px;">Good morning!</h1>
+            <p style="color: var(--text-muted);">Keep the streak alive 🔥</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Left Column: Habits List -->
+            <div class="habits-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Today's Habits</h2>
+                        <button id="add-habit-btn" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.875rem;">
+                            <i data-lucide="plus" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Add Habit
+                        </button>
+                    </div>
+                    
+                    <div id="habits-list">
+                        <!-- Habits will be injected here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" style="text-align: center; padding: 40px 0; display: none;">
+                        <div style="color: var(--text-muted); margin-bottom: 16px;">
+                            <i data-lucide="calendar-plus" style="width: 48px; height: 48px; opacity: 0.5;"></i>
+                        </div>
+                        <p>No habits added yet. Start your journey today!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Stats -->
+            <div class="stats-section">
+                <!-- Daily Progress Ring -->
+                <div class="card" style="text-align: center;">
+                    <h3>Daily Progress</h3>
+                    <div class="progress-container">
+                        <svg class="progress-ring" width="150" height="150">
+                            <circle class="progress-ring-bg" stroke="#e2e8f0" stroke-width="12" fill="transparent" r="60" cx="75" cy="75" />
+                            <circle id="progress-circle" class="progress-ring-circle" stroke="var(--primary)" stroke-width="12" stroke-dasharray="376.99" stroke-dashoffset="376.99" stroke-linecap="round" fill="transparent" r="60" cx="75" cy="75" />
+                        </svg>
+                        <div class="progress-text">
+                            <span id="progress-percent">0%</span>
+                        </div>
+                    </div>
+                    <p id="progress-summary" style="font-size: 0.875rem; color: var(--text-muted);">0 of 0 habits completed</p>
+                </div>
+
+                <!-- Weekly Summary -->
+                <div class="card">
+                    <h3>Weekly Consistency</h3>
+                    <div class="weekly-chart" id="weekly-chart">
+                        <!-- Chart bars will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Adding Habit -->
+    <div id="add-habit-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="card" style="width: 100%; max-width: 400px; margin: 20px;">
+            <div class="card-header">
+                <h2>New Habit</h2>
+                <button id="close-modal" style="background: none; color: var(--text-muted);"><i data-lucide="x"></i></button>
+            </div>
+            <form id="habit-form">
+                <div class="form-group">
+                    <label for="habit-name">Habit Name</label>
+                    <input type="text" id="habit-name" class="form-input" placeholder="e.g. Morning Yoga" required>
+                </div>
+                <div class="form-group">
+                    <label for="habit-category">Category</label>
+                    <select id="habit-category" class="form-input">
+                        <option value="Health">Health</option>
+                        <option value="Learning">Learning</option>
+                        <option value="Mindfulness">Mindfulness</option>
+                        <option value="Productivity">Productivity</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Habit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
