@@ -41,6 +41,8 @@ function updateDateTime() {
 
 function renderHabits() {
     habitsList.innerHTML = '';
+    const habitCount = document.getElementById('habit-count');
+    habitCount.textContent = `${habits.length} ritual${habits.length !== 1 ? 's' : ''}`;
     
     if (habits.length === 0) {
         emptyState.style.display = 'block';
@@ -126,7 +128,8 @@ function updateProgress() {
 }
 
 function setProgress(percent) {
-    const offset = 376.99 - (percent / 100) * 376.99;
+    const circumference = 534.07; // 2 * PI * 85
+    const offset = circumference - (percent / 100) * circumference;
     progressCircle.style.strokeDashoffset = offset;
     progressPercent.textContent = `${percent}%`;
 }

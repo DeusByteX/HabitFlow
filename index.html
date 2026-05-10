@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="style.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Spline Viewer for 3D Animations -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.91/build/spline-viewer.js"></script>
+    <style>
+        .hero-3d {
+            width: 100%;
+            height: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -24,104 +38,108 @@
         </div>
     </nav>
 
-    <header class="hero container animate-fade">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 120px 0;">
-            <h1 style="font-size: 4rem; line-height: 1.1; margin-bottom: 24px; font-weight: 700;">
+    <header class="hero container animate-fade" style="position: relative; overflow: visible;">
+        <!-- 3D Background Element -->
+        <div class="hero-3d">
+            <spline-viewer url="https://prod.spline.design/6Wq1Q7YAnWj88nxJ/scene.splinecode"></spline-viewer>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 160px 0; position: relative; z-index: 10;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(129, 140, 248, 0.1); border: 1px solid rgba(129, 140, 248, 0.2); padding: 8px 16px; border-radius: 100px; color: var(--primary); font-size: 0.875rem; font-weight: 600; margin-bottom: 32px;">
+                <span style="display: inline-block; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite;"></span>
+                New: AI-Powered Consistency Tracking
+            </div>
+            <h1 style="font-size: 5rem; line-height: 1.05; margin-bottom: 24px; font-weight: 700; letter-spacing: -2px;">
                 Track Your Habits. <br>
                 <span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Transform Your Life.</span>
             </h1>
-            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                The simplest way to build lasting habits, track your progress, and stay consistent with the life you want to lead.
+            <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 48px; max-width: 650px; margin-left: auto; margin-right: auto;">
+                Build lasting routines and watch your progress unfold in a beautiful, distraction-free environment.
             </p>
-            <div style="display: flex; gap: 16px; justify-content: center;">
-                <a href="tracker.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem;">Start Tracking Free</a>
-                <a href="#how-it-works" class="btn btn-outline" style="padding: 16px 32px; font-size: 1.1rem;">How It Works</a>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="tracker.html" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.125rem;">Start Your Journey</a>
+                <a href="#how-it-works" class="btn btn-outline" style="padding: 18px 40px; font-size: 1.125rem;">Watch Video</a>
             </div>
         </div>
     </header>
 
-    <section id="features" style="background-color: var(--bg-white);">
+    <section id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Built for Consistency</h2>
-                <p>Everything you need to master your daily routines.</p>
+                <h2>Designed for High Achievers</h2>
+                <p>Minimalist tools, maximalist results.</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                <div class="feature-card" style="padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition);">
-                    <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 24px;">
-                        <i data-lucide="trending-up"></i>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
+                <div class="glass-card">
+                    <div style="width: 60px; height: 60px; background: rgba(129, 140, 248, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 28px;">
+                        <i data-lucide="flame" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 12px;">Build Streaks</h3>
-                    <p style="color: var(--text-muted);">Watch your momentum grow as you complete habits daily. Don't break the chain!</p>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Build Streaks</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Harness the power of momentum. Every day you complete is a victory recorded.</p>
                 </div>
-                <div class="feature-card" style="padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition);">
-                    <div style="width: 50px; height: 50px; background: rgba(20, 184, 166, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin-bottom: 24px;">
-                        <i data-lucide="layout"></i>
+                <div class="glass-card">
+                    <div style="width: 60px; height: 60px; background: rgba(45, 212, 191, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin-bottom: 28px;">
+                        <i data-lucide="pie-chart" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 12px;">Visualize Progress</h3>
-                    <p style="color: var(--text-muted);">Clear charts and progress rings show you exactly how far you've come today.</p>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Visual Analytics</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Stunning 3D-inspired progress rings and weekly trends keep you motivated.</p>
                 </div>
-                <div class="feature-card" style="padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition);">
-                    <div style="width: 50px; height: 50px; background: rgba(244, 63, 94, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 24px;">
-                        <i data-lucide="shield-check"></i>
+                <div class="glass-card">
+                    <div style="width: 60px; height: 60px; background: rgba(251, 113, 133, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 28px;">
+                        <i data-lucide="shield" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 12px;">Stay Consistent</h3>
-                    <p style="color: var(--text-muted);">Reminders and simple check-ins keep you focused on what matters most.</p>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Privacy First</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">All your data stays local. We track your progress, not your personal info.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="how-it-works">
+    <section id="how-it-works" style="background: rgba(30, 41, 59, 0.3);">
         <div class="container">
             <div class="section-title">
-                <h2>How It Works</h2>
-                <p>Three simple steps to a better you.</p>
+                <h2>The 3-Step Flow</h2>
+                <p>Simplicity is the ultimate sophistication.</p>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 60px; max-width: 800px; margin: 0 auto;">
-                <div style="display: flex; gap: 40px; align-items: center;">
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--border);">01</div>
-                    <div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 8px;">Add Your Habits</h3>
-                        <p style="color: var(--text-muted);">Choose from suggested habits or create your own custom goals like "Read 20 pages" or "Morning Yoga".</p>
-                    </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; max-width: 1000px; margin: 0 auto; text-align: center;">
+                <div>
+                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">01</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--primary);">Define</h3>
+                    <p style="color: var(--text-muted);">Set clear, actionable habits that align with your goals.</p>
                 </div>
-                <div style="display: flex; gap: 40px; align-items: center;">
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--border);">02</div>
-                    <div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 8px;">Check Them Off</h3>
-                        <p style="color: var(--text-muted);">A simple click is all it takes. Feel the satisfaction of completing your daily tasks.</p>
-                    </div>
+                <div>
+                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">02</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--secondary);">Execute</h3>
+                    <p style="color: var(--text-muted);">Check off your tasks daily with one satisfying click.</p>
                 </div>
-                <div style="display: flex; gap: 40px; align-items: center;">
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--border);">03</div>
-                    <div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 8px;">Watch Your Streak Grow</h3>
-                        <p style="color: var(--text-muted);">Visualize your consistency with streaks and weekly progress reports that keep you motivated.</p>
-                    </div>
+                <div>
+                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">03</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--accent);">Evolve</h3>
+                    <p style="color: var(--text-muted);">Watch your life transform as consistency becomes your nature.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section style="background: var(--primary); color: white; text-align: center; padding: 80px 0;">
+    <section style="background: linear-gradient(135deg, var(--bg-surface), var(--bg-dark)); text-align: center; border-top: 1px solid var(--border);">
         <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 16px;">10,000+ Habits Tracked Daily</h2>
-            <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 32px;">Join thousands of others transforming their lives one habit at a time.</p>
-            <a href="tracker.html" class="btn btn-white" style="background: white; color: var(--primary); padding: 16px 32px;">Get Started Now</a>
+            <h2 style="font-size: 3.5rem; margin-bottom: 24px; font-weight: 700;">Ready to Flow?</h2>
+            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 48px;">Join thousands of others in building a better future.</p>
+            <a href="tracker.html" class="btn btn-primary" style="padding: 20px 48px; font-size: 1.25rem;">Go to Dashboard</a>
         </div>
     </section>
 
-    <footer style="padding: 60px 0; border-top: 1px solid var(--border); background: var(--bg-white);">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+    <footer style="padding: 80px 0; border-top: 1px solid var(--border); background: var(--bg-dark);">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px;">
             <a href="index.html" class="logo">
                 <i data-lucide="zap"></i>
                 Habit<span>Flow</span>
             </a>
-            <p style="color: var(--text-muted);">&copy; 2026 HabitFlow. All rights reserved.</p>
-            <div style="display: flex; gap: 24px;">
-                <a href="#" style="color: var(--text-muted);">Twitter</a>
-                <a href="#" style="color: var(--text-muted);">Instagram</a>
+            <p style="color: var(--text-muted);">&copy; 2026 HabitFlow. Designed for Excellence.</p>
+            <div style="display: flex; gap: 32px;">
+                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Terms</a>
+                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Privacy</a>
+                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Twitter</a>
             </div>
         </div>
     </footer>
