@@ -13,10 +13,10 @@ const addHabitBtn = document.getElementById('add-habit-btn');
 const addHabitModal = document.getElementById('add-habit-modal');
 const closeModal = document.getElementById('close-modal');
 const habitForm = document.getElementById('habit-form');
-const currentYear = new Date().getFullYear();
-const currentMonth = new Date().getMonth();
-const currentDay = new Date().getDate();
-const todayKey = `${currentYear}-${currentMonth + 1}-${currentDay}`;
+function getTodayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
 
 // Initialize App
 function init() {
@@ -52,8 +52,9 @@ function renderHabits() {
     emptyState.style.display = 'none';
 
     habits.forEach(habit => {
-        // Check if habit was completed today
+        const todayKey = getTodayKey();
         const isCompleted = habit.lastCompletedDate === todayKey;
+        const streak = calcStreak(habit);
         
         const habitEl = document.createElement('div');
         habitEl.className = 'habit-item';
@@ -70,7 +71,7 @@ function renderHabits() {
             <div style="display: flex; align-items: center; gap: 16px;">
                 <div class="streak-badge">
                     <i data-lucide="flame" style="width: 14px; height: 14px;"></i>
-                    ${habit.streak} day streak
+                    ${streak} day streak
                 </div>
                 <button onclick="deleteHabit('${habit.id}')" style="background: none; color: #ef4444; opacity: 0.5;"><i data-lucide="trash-2" style="width: 18px; height: 18px;"></i></button>
             </div>
@@ -85,17 +86,12 @@ function toggleHabit(id) {
     const habit = habits.find(h => h.id === id);
     if (!habit) return;
 
+    const todayKey = getTodayKey();
     if (habit.lastCompletedDate === todayKey) {
-        // Un-complete
         habit.lastCompletedDate = habit.previousCompletionDate || null;
-        habit.streak = Math.max(0, habit.streak - 1);
     } else {
-        // Complete
         habit.previousCompletionDate = habit.lastCompletedDate;
         habit.lastCompletedDate = todayKey;
-        habit.streak += 1;
-        
-        // Push to history for charts
         if (!habit.history) habit.history = [];
         if (!habit.history.includes(todayKey)) {
             habit.history.push(todayKey);
@@ -103,6 +99,23 @@ function toggleHabit(id) {
     }
 
     saveAndRefresh();
+}
+
+function calcStreak(habit) {
+    const dates = (habit.history || []).map(d => new Date(d));
+    if (dates.length === 0) return 0;
+    dates.sort((a, b) => b - a);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let streak = 0;
+    let checkDate = new Date(today);
+    if (dates.some(d => d.getTime() === today.getTime()) || dates.some(d => d.getTime() === today.getTime() - 86400000)) {
+        while (dates.some(d => d.getTime() === checkDate.getTime())) {
+            streak++;
+            checkDate.setDate(checkDate.getDate() - 1);
+        }
+    }
+    return streak;
 }
 
 function deleteHabit(id) {
@@ -120,7 +133,7 @@ function updateProgress() {
         return;
     }
 
-    const completed = habits.filter(h => h.lastCompletedDate === todayKey).length;
+    const completed = habits.filter(h => h.lastCompletedDate === getTodayKey()).length;
     const percent = Math.round((completed / total) * 100);
     
     setProgress(percent);
@@ -139,27 +152,22 @@ function renderWeeklyChart() {
     chart.innerHTML = '';
     
     const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-    const today = new Date().getDay();
+    const today = new Date();
     
-    for (let i = 0; i < 7; i++) {
-        const dayIdx = (today - 6 + i + 7) % 7;
-        const dayName = days[dayIdx];
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const dayKey = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+        const dayName = days[d.getDay()];
         
-        // Calculate % for that day (mocked here for simplicity, but could use history)
-        let dayPercent = 0;
-        if (i === 6) { // Today
-            const total = habits.length;
-            const completed = habits.filter(h => h.lastCompletedDate === todayKey).length;
-            dayPercent = total > 0 ? (completed / total) * 100 : 0;
-        } else {
-            // Random-ish historical data for visual effect
-            dayPercent = habits.length > 0 ? Math.floor(Math.random() * 60) + 20 : 0;
-        }
+        const total = habits.length;
+        const completed = habits.filter(h => (h.history || []).includes(dayKey)).length;
+        const dayPercent = total > 0 ? (completed / total) * 100 : 0;
 
         const barContainer = document.createElement('div');
         barContainer.className = 'chart-bar-container';
         barContainer.innerHTML = `
-            <div class="chart-bar ${i === 6 ? 'active' : ''}" style="height: ${Math.max(10, dayPercent)}%;"></div>
+            <div class="chart-bar ${i === 0 ? 'active' : ''}" style="height: ${Math.max(8, dayPercent)}%;"></div>
             <span class="chart-label">${dayName}</span>
         `;
         chart.appendChild(barContainer);
@@ -191,7 +199,6 @@ function setupEventListeners() {
             id: Date.now().toString(),
             name,
             category,
-            streak: 0,
             lastCompletedDate: null,
             history: []
         };

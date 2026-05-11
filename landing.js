@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const animateElements = document.querySelectorAll('.feature-card, .step, .hero-content, .hero-image');
+    const animateElements = document.querySelectorAll('.glass-card, #how-it-works h3, .hero, section');
     animateElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';

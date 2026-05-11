@@ -163,7 +163,7 @@ section {
     font-size: 3rem;
     margin-bottom: 20px;
     font-weight: 700;
-    background: linear-gradient(to right, #fff, var(--text-muted));
+    background: linear-gradient(to right, var(--text-main), var(--text-muted));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -509,6 +509,10 @@ body, nav, .card, .glass-card, .btn, .habit-item, .form-input, .logo, h1, h2, h3
 .review-card.user-review {
     border-color: rgba(99, 102, 241, 0.15);
     animation: fadeIn 0.5s ease forwards;
+}
+
+footer a:hover {
+    color: var(--text-main) !important;
 }
 
 @media (max-width: 640px) {
