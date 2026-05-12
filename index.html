@@ -1,163 +1,1024 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HabitFlow | Track Your Habits. Transform Your Life.</title>
-    <meta name="description" content="Master your habits and build streaks that last with HabitFlow. The ultimate minimalist habit tracker.">
-    <link rel="stylesheet" href="style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Spline Viewer for 3D Animations -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.91/build/spline-viewer.js"></script>
-    <style>
-        .hero-3d {
-            width: 100%;
-            height: 600px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            opacity: 0.8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HabitFlow — Build Better Habits with AI-Powered Coaching</title>
+  <meta name="description" content="Join 2,800+ users transforming their lives with intelligent habit tracking, personalized AI guidance, and powerful streak monitoring.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M10 17l4 4 8-8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 140px 0 80px;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 32px;
+      transition: all var(--transition);
+    }
+
+    .badge-pill .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-offer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 64px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .hero-preview {
+      margin-top: 80px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-preview-img {
+      width: 100%;
+      max-width: 900px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xl);
+      background: var(--bg-surface);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-preview-img svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding: 24px 0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .trust-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--secondary);
+    }
+
+    .featured-in {
+      padding: 48px 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .featured-in p {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .featured-logos {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .featured-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      opacity: 0.5;
+      transition: opacity var(--transition);
+    }
+
+    .featured-logo:hover { opacity: 0.8; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .step-number {
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: -24px;
+      -webkit-text-stroke: 1px var(--border-light);
+      -webkit-text-fill-color: transparent;
+    }
+
+    .step-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .step-title.health { color: var(--primary); }
+    .step-title.mind { color: var(--secondary); }
+    .step-title.growth { color: var(--accent); }
+
+    .step-desc { color: var(--text-secondary); font-size: 0.95rem; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pricing-card.popular {
+      border-color: var(--primary);
+      border-width: 2px;
+    }
+
+    .pricing-card.popular::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 4px 20px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pricing-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .pricing-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .pricing-features {
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .pricing-features li:last-child { border-bottom: none; }
+
+    .pricing-features li svg {
+      width: 18px;
+      height: 18px;
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .pricing-guarantee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .pricing-guarantee svg {
+      width: 18px;
+      height: 18px;
+      color: var(--primary);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: all var(--transition);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-text {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .testimonial-name { font-weight: 600; font-size: 0.9rem; }
+    .testimonial-role { font-size: 0.8rem; color: var(--text-muted); }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--bg-surface), var(--bg));
+      text-align: center;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .cta-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .logo { margin-bottom: 16px; }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 340px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+
+    .footer-social a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99,102,241,0.05);
+    }
+
+    .footer-social a svg { width: 16px; height: 16px; }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 5px 0;
+      font-weight: 500;
+    }
+
+    .footer-col a:hover { color: var(--primary); }
+
+    .footer-newsletter p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      background: var(--bg);
+      color: var(--text);
+      transition: all var(--transition);
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .newsletter-form button {
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .newsletter-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-bottom p { font-size: 0.85rem; color: var(--text-muted); }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .footer-bottom-links a:hover { color: var(--primary); }
+
+    .download-badges {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .download-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: all var(--transition);
+    }
+
+    .download-badge:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .download-badge svg { width: 24px; height: 24px; }
+
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-stats { gap: 24px; }
+      .hero-stat-value { font-size: 1.6rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .featured-logos { gap: 24px; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-            <a href="index.html" class="logo">
-                <i data-lucide="zap"></i>
-                Habit<span>Flow</span>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Habit<span>Flow</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="tracker.html" class="btn btn-primary">Start Tracking Free</a></li>
+        <li>
+          <div class="theme-toggle-container">
+            <span class="theme-label" aria-live="polite">Light</span>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+              <svg class="icon icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.803 5.197a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM6.788 18.273a.75.75 0 10-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM5.197 5.197a.75.75 0 000 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591a.75.75 0 00-1.06 0zM18.273 18.273a.75.75 0 000-1.06l-1.591-1.591a.75.75 0 10-1.06 1.061l1.591 1.591a.75.75 0 001.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
+              <svg class="icon icon-moon" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/></svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero container animate-fade">
+    <div class="hero-bg-glow"></div>
+    <div style="text-align: center; max-width: 900px; margin: 0 auto; position: relative; z-index: 1;">
+      <div class="badge-pill">
+        <span class="dot"></span>
+        Now with AI-Powered Coaching
+      </div>
+      <h1>
+        Build Better Habits with<br>
+        <span class="gradient-text">Your Personal AI Coach</span>
+      </h1>
+      <p>
+        Join 2,800+ users who are transforming their lives through intelligent habit tracking, personalized AI guidance, and powerful streak monitoring.
+      </p>
+      <div class="hero-actions">
+        <a href="tracker.html" class="btn btn-primary" style="padding: 16px 36px; font-size: 1rem;">Start Free Today</a>
+        <a href="#features" class="btn btn-outline" style="padding: 16px 36px; font-size: 1rem;">Learn More</a>
+      </div>
+      <div class="hero-offer">No credit card required &bull; 3 habits free forever</div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">2,800+</div>
+          <div class="hero-stat-label">Active Users</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">2M+</div>
+          <div class="hero-stat-label">Habits Tracked</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">95%</div>
+          <div class="hero-stat-label">Success Rate</div>
+        </div>
+      </div>
+
+      <div class="hero-preview">
+        <div class="hero-preview-img">
+          <svg viewBox="0 0 900 506" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="506" rx="16" fill="var(--bg-surface)"/>
+            <rect x="0" y="0" width="900" height="56" fill="var(--bg-nav)" rx="16"/>
+            <rect x="24" y="16" width="120" height="24" rx="6" fill="var(--primary)" opacity="0.2"/>
+            <rect x="24" y="16" width="24" height="24" rx="6" fill="var(--primary)"/>
+            <rect x="54" y="21" width="50" height="14" rx="4" fill="var(--primary)"/>
+            <rect x="600" y="14" width="100" height="28" rx="14" fill="var(--primary)" opacity="0.15"/>
+            <rect x="720" y="14" width="56" height="28" rx="14" fill="var(--border)"/>
+            <circle cx="748" cy="28" r="10" fill="white"/>
+            <rect x="770" y="22" width="30" height="12" rx="4" fill="var(--text-muted)" opacity="0.5"/>
+            <rect x="24" y="80" width="400" height="32" rx="6" fill="var(--border-light)"/>
+            <rect x="24" y="80" width="200" height="32" rx="6" fill="var(--primary)" opacity="0.1"/>
+            <rect x="30" y="88" width="100" height="16" rx="4" fill="var(--text)"/>
+            <rect x="24" y="130" width="540" height="80" rx="12" fill="var(--bg-surface)" stroke="var(--border-light)" stroke-width="1"/>
+            <rect x="40" y="146" width="36" height="36" rx="18" fill="var(--primary)" opacity="0.1"/>
+            <circle cx="58" cy="164" r="9" fill="var(--primary)"/>
+            <rect x="86" y="150" width="140" height="14" rx="4" fill="var(--text)"/>
+            <rect x="86" y="168" width="60" height="12" rx="6" fill="var(--border-light)"/>
+            <rect x="154" y="168" width="80" height="12" rx="6" fill="var(--primary)" opacity="0.1"/>
+            <rect x="500" y="150" width="48" height="24" rx="12" fill="var(--primary)" opacity="0.15"/>
+            <rect x="506" y="156" width="12" height="12" rx="6" fill="var(--primary)"/>
+            <rect x="522" y="159" width="16" height="6" rx="3" fill="var(--text)" opacity="0.5"/>
+            <rect x="24" y="226" width="540" height="80" rx="12" fill="var(--bg-surface)" stroke="var(--border-light)" stroke-width="1"/>
+            <circle cx="58" cy="266" r="9" fill="var(--border)"/>
+            <rect x="86" y="250" width="200" height="14" rx="4" fill="var(--text)"/>
+            <rect x="86" y="268" width="45" height="12" rx="6" fill="var(--primary)" opacity="0.15"/>
+            <rect x="139" y="268" width="80" height="12" rx="6" fill="var(--secondary)" opacity="0.1"/>
+            <rect x="24" y="322" width="540" height="80" rx="12" fill="var(--bg-surface)" stroke="var(--border-light)" stroke-width="1"/>
+            <circle cx="58" cy="362" r="9" fill="var(--border)"/>
+            <rect x="86" y="346" width="160" height="14" rx="4" fill="var(--text)"/>
+            <rect x="86" y="364" width="70" height="12" rx="6" fill="var(--accent)" opacity="0.15"/>
+            <rect x="600" y="130" width="270" height="176" rx="16" fill="var(--bg-surface)" stroke="var(--border-light)" stroke-width="1"/>
+            <circle cx="735" cy="218" r="60" fill="none" stroke="var(--border-light)" stroke-width="8"/>
+            <circle cx="735" cy="218" r="60" fill="none" stroke="var(--primary)" stroke-width="8" stroke-dasharray="314" stroke-dashoffset="94" stroke-linecap="round" transform="rotate(-90 735 218)"/>
+            <rect x="700" y="202" width="70" height="32" rx="4" fill="var(--primary)" opacity="0.1"/>
+            <rect x="620" y="310" width="100" height="14" rx="4" fill="var(--text)"/>
+            <rect x="840" y="130" width="36" height="36" rx="8" fill="var(--primary)" opacity="0.1"/>
+            <rect x="848" y="144" width="20" height="8" rx="2" fill="var(--primary)"/>
+            <rect x="600" y="322" width="270" height="140" rx="16" fill="var(--bg-surface)" stroke="var(--border-light)" stroke-width="1"/>
+            <rect x="616" y="338" width="100" height="12" rx="4" fill="var(--text)" opacity="0.3"/>
+            <rect x="620" y="360" width="30" height="60" rx="4" fill="var(--primary)" opacity="0.2"/>
+            <rect x="658" y="340" width="30" height="80" rx="4" fill="var(--primary)" opacity="0.35"/>
+            <rect x="696" y="330" width="30" height="90" rx="4" fill="var(--primary)" opacity="0.6"/>
+            <rect x="734" y="350" width="30" height="70" rx="4" fill="var(--primary)" opacity="0.35"/>
+            <rect x="772" y="320" width="30" height="100" rx="4" fill="var(--primary)" opacity="0.7"/>
+            <rect x="810" y="360" width="30" height="60" rx="4" fill="var(--primary)" opacity="0.25"/>
+            <rect x="616" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+            <rect x="656" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+            <rect x="696" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+            <rect x="736" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+            <rect x="776" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+            <rect x="810" y="430" width="20" height="10" rx="3" fill="var(--text-muted)" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="featured-in reveal">
+    <div class="container">
+      <p>As Featured In</p>
+      <div class="featured-logos">
+        <span class="featured-logo">TechCrunch</span>
+        <span class="featured-logo">The Verge</span>
+        <span class="featured-logo">Lifehacker</span>
+        <span class="featured-logo">Forbes</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 32px 0;">
+    <div class="container">
+      <div class="trust-bar">
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          SSL Secured
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          GDPR Compliant
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Data Encrypted
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          24/7 Support
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="reveal" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Everything You Need to Succeed</h2>
+        <p>Powerful features designed to make habit building effortless and enjoyable.</p>
+      </div>
+      <div class="features-grid">
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin: 0 auto 24px; font-size: 1.6rem;">🤖</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">AI-Powered Coaching</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Get personalized advice, motivation, and strategies from your intelligent habit coach available 24/7.</p>
+        </div>
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(20,184,166,0.12), rgba(20,184,166,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin: 0 auto 24px; font-size: 1.6rem;">📊</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Visual Progress Tracking</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Beautiful charts and calendars show your progress at a glance, keeping you motivated to maintain streaks.</p>
+        </div>
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(244,63,94,0.12), rgba(244,63,94,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin: 0 auto 24px; font-size: 1.6rem;">🔔</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Smart Reminders</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Customizable notifications ensure you never miss a day, helping you build consistency effortlessly.</p>
+        </div>
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin: 0 auto 24px; font-size: 1.6rem;">🎯</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Goal Setting & Milestones</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Set meaningful goals and celebrate achievements with milestone tracking and rewards.</p>
+        </div>
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(20,184,166,0.12), rgba(20,184,166,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin: 0 auto 24px; font-size: 1.6rem;">📱</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Works Everywhere</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Seamlessly sync across all devices — track habits on your phone, tablet, or computer.</p>
+        </div>
+        <div class="glass-card" style="text-align: center;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(244,63,94,0.12), rgba(244,63,94,0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin: 0 auto 24px; font-size: 1.6rem;">🔒</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Privacy First</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Your data is encrypted and secure. We never share your personal information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <h2>Start Your Journey in 3 Simple Steps</h2>
+        <p>Building better habits has never been easier.</p>
+      </div>
+      <div class="steps-grid">
+        <div>
+          <div class="step-number">01</div>
+          <h3 class="step-title health">Create Your Habits</h3>
+          <p class="step-desc">Choose from our library or create custom habits. Set your goals and let your AI coach guide you.</p>
+        </div>
+        <div>
+          <div class="step-number">02</div>
+          <h3 class="step-title mind">Track Daily Progress</h3>
+          <p class="step-desc">Check off completed habits, build streaks, and get real-time encouragement from your AI coach.</p>
+        </div>
+        <div>
+          <div class="step-number">03</div>
+          <h3 class="step-title growth">See Your Growth</h3>
+          <p class="step-desc">Watch your progress unfold with beautiful visualizations and celebrate your achievements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="reveal" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Simple, Transparent Pricing</h2>
+        <p>Start free and upgrade when you're ready for unlimited possibilities.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Free Forever</div>
+          <div class="pricing-price">$0 <span>/month</span></div>
+          <div class="pricing-desc">Perfect for getting started</div>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Track up to 3 habits</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Basic streak tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Daily reminders</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Progress overview</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 3 AI coaching sessions/day</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive</li>
+          </ul>
+          <a href="tracker.html" class="btn btn-outline" style="width: 100%; justify-content: center;">Start Free</a>
+        </div>
+        <div class="pricing-card popular">
+          <div class="pricing-name">Premium</div>
+          <div class="pricing-price">$9.99 <span>/month</span></div>
+          <div class="pricing-desc">Unlock the full potential</div>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited habits</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited AI coaching</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Advanced analytics</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Custom categories & colors</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Export your data</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
+          </ul>
+          <a href="tracker.html" class="btn btn-primary" style="width: 100%; justify-content: center;">Go Premium</a>
+        </div>
+      </div>
+      <div class="pricing-guarantee">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        30-Day Money Back Guarantee &mdash; Try Premium risk-free
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <h2>Success Stories from Our Community</h2>
+        <p>Real people, real transformations.</p>
+      </div>
+      <div class="testimonials-grid stagger">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The AI coach is a game-changer! It's like having a personal trainer for my habits. I've maintained my meditation streak for 60 days!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">SM</div>
+            <div>
+              <div class="testimonial-name">Sarah M.</div>
+              <div class="testimonial-role">Entrepreneur</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Finally, a habit tracker that understands me. The AI gives personalized advice that actually works. Lost 20 pounds in 3 months!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));">MR</div>
+            <div>
+              <div class="testimonial-name">Mike R.</div>
+              <div class="testimonial-role">Software Developer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Love the visual progress tracking and AI motivation. It turned my chaotic mornings into a productive routine. Highly recommend!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--accent), #e11d48);">EK</div>
+            <div>
+              <div class="testimonial-name">Emily K.</div>
+              <div class="testimonial-role">Teacher</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section reveal">
+    <div class="container" style="position: relative; z-index: 1;">
+      <h2>Ready to Transform Your Life?</h2>
+      <p>Join 2,800+ people building better habits with AI-powered guidance.</p>
+      <a href="tracker.html" class="btn btn-primary" style="padding: 18px 44px; font-size: 1.1rem;">Start Your Free Trial</a>
+      <div class="cta-note">No credit card required &bull; 3 habits free forever</div>
+      <div class="download-badges">
+        <span class="download-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          App Store
+        </span>
+        <span class="download-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-5.232 5.232"/></svg>
+          Google Play
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Habit<span>Flow</span>
+          </a>
+          <p>Build better habits with AI-powered coaching. Track progress, maintain streaks, and transform your life one habit at a time.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-5.232 5.232"/></svg>
             </a>
-            <ul class="nav-links" style="align-items: center;">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="tracker.html" class="btn btn-primary">Start Tracking Free</a></li>
-                <li>
-                    <div class="theme-toggle-container">
-                        <span class="theme-label" aria-live="polite">Light</span>
-                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                            <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.803 5.197a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM6.788 18.273a.75.75 0 10-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM5.197 5.197a.75.75 0 000 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591a.75.75 0 00-1.06 0zM18.273 18.273a.75.75 0 000-1.06l-1.591-1.591a.75.75 0 10-1.06 1.061l1.591 1.591a.75.75 0 001.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
-                            <svg class="icon icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/></svg>
-                        </button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="hero container animate-fade" style="position: relative; overflow: visible;">
-        <!-- 3D Background Element -->
-        <div class="hero-3d">
-            <spline-viewer url="https://prod.spline.design/6Wq1Q7YAnWj88nxJ/scene.splinecode"></spline-viewer>
-        </div>
-
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 160px 0; position: relative; z-index: 10;">
-            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(129, 140, 248, 0.1); border: 1px solid rgba(129, 140, 248, 0.2); padding: 8px 16px; border-radius: 100px; color: var(--primary); font-size: 0.875rem; font-weight: 600; margin-bottom: 32px;">
-                <span style="display: inline-block; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite;"></span>
-                New: AI-Powered Consistency Tracking
-            </div>
-            <h1 style="font-size: 5rem; line-height: 1.05; margin-bottom: 24px; font-weight: 700; letter-spacing: -2px;">
-                Track Your Habits. <br>
-                <span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Transform Your Life.</span>
-            </h1>
-            <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 48px; max-width: 650px; margin-left: auto; margin-right: auto;">
-                Build lasting routines and watch your progress unfold in a beautiful, distraction-free environment.
-            </p>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                <a href="tracker.html" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.125rem;">Start Your Journey</a>
-                <a href="#how-it-works" class="btn btn-outline" style="padding: 18px 40px; font-size: 1.125rem;">Watch Video</a>
-            </div>
-        </div>
-    </header>
-
-    <section id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Designed for High Achievers</h2>
-                <p>Minimalist tools, maximalist results.</p>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
-                <div class="glass-card">
-                    <div style="width: 60px; height: 60px; background: rgba(129, 140, 248, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 28px;">
-                        <i data-lucide="flame" style="width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Build Streaks</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem;">Harness the power of momentum. Every day you complete is a victory recorded.</p>
-                </div>
-                <div class="glass-card">
-                    <div style="width: 60px; height: 60px; background: rgba(45, 212, 191, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin-bottom: 28px;">
-                        <i data-lucide="pie-chart" style="width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Visual Analytics</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem;">Stunning 3D-inspired progress rings and weekly trends keep you motivated.</p>
-                </div>
-                <div class="glass-card">
-                    <div style="width: 60px; height: 60px; background: rgba(251, 113, 133, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 28px;">
-                        <i data-lucide="shield" style="width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Privacy First</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem;">All your data stays local. We track your progress, not your personal info.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" style="background: rgba(30, 41, 59, 0.3);">
-        <div class="container">
-            <div class="section-title">
-                <h2>The 3-Step Flow</h2>
-                <p>Simplicity is the ultimate sophistication.</p>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; max-width: 1000px; margin: 0 auto; text-align: center;">
-                <div>
-                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">01</div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--primary);">Define</h3>
-                    <p style="color: var(--text-muted);">Set clear, actionable habits that align with your goals.</p>
-                </div>
-                <div>
-                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">02</div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--secondary);">Execute</h3>
-                    <p style="color: var(--text-muted);">Check off your tasks daily with one satisfying click.</p>
-                </div>
-                <div>
-                    <div style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px;">03</div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--accent);">Evolve</h3>
-                    <p style="color: var(--text-muted);">Watch your life transform as consistency becomes your nature.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="background: linear-gradient(135deg, var(--bg-surface), var(--bg-dark)); text-align: center; border-top: 1px solid var(--border);">
-        <div class="container">
-            <h2 style="font-size: 3.5rem; margin-bottom: 24px; font-weight: 700;">Ready to Flow?</h2>
-            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 48px;">Join thousands of others in building a better future.</p>
-            <a href="tracker.html" class="btn btn-primary" style="padding: 20px 48px; font-size: 1.25rem;">Go to Dashboard</a>
-        </div>
-    </section>
-
-    <footer style="padding: 80px 0; border-top: 1px solid var(--border); background: var(--bg-dark);">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px;">
-            <a href="index.html" class="logo">
-                <i data-lucide="zap"></i>
-                Habit<span>Flow</span>
+            <a href="#" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             </a>
-            <p style="color: var(--text-muted);">&copy; 2026 HabitFlow. Designed for Excellence.</p>
-            <div style="display: flex; gap: 32px;">
-                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Terms</a>
-                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Privacy</a>
-                <a href="#" style="color: var(--text-muted); hover: color: var(--text-main);">Twitter</a>
-            </div>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
         </div>
-    </footer>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Blog</a>
+          <a href="#">Help Center</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+          <a href="#">Careers</a>
+          <a href="#">Press Kit</a>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Get habit tips and product updates delivered to your inbox.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault();alert('Thanks for subscribing!');">
+            <input type="email" placeholder="your@email.com" required>
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="newsletter-note">No spam, unsubscribe anytime.</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 HabitFlow. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
+  <script src="theme.js"></script>
+  <script>
+    lucide.createIcons();
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
 
-    <script src="theme.js"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
