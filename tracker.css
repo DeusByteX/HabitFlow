@@ -1,203 +1,584 @@
-/* Dashboard Specific Styles - Dark Theme */
 .dashboard {
-    padding: 60px 0;
-    min-height: calc(100vh - 80px);
-    background-color: var(--bg-dark);
+  padding: 40px 0 80px;
+  min-height: calc(100vh - 72px);
 }
 
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.dashboard-header h1 span { color: var(--primary); }
+
+.dashboard-header .subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.date-badge {
+  padding: 8px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ==================== QUICK STATS ==================== */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all var(--transition);
+}
+
+.stat-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ==================== DASHBOARD GRID ==================== */
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+  align-items: start;
 }
 
-@media (max-width: 992px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 1024px) {
+  .quick-stats { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid { grid-template-columns: 1fr; }
 }
 
-.card {
-    background: var(--bg-surface);
-    border-radius: var(--radius);
-    padding: 32px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    margin-bottom: 24px;
+@media (max-width: 600px) {
+  .quick-stats { grid-template-columns: 1fr; }
+}
+
+/* ==================== HABITS SECTION ==================== */
+.habits-section .card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: all var(--transition-slow);
 }
 
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
+.card-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#habit-count {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+/* ==================== HABIT ITEM ==================== */
 .habit-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background: var(--bg-dark);
-    border-radius: var(--radius);
-    margin-bottom: 16px;
-    border: 1px solid var(--border);
-    transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.habit-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  transition: background var(--transition);
 }
 
 .habit-item:hover {
-    transform: translateX(6px);
-    border-color: var(--primary);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(2px);
 }
+
+.habit-item:last-child { margin-bottom: 0; }
 
 .habit-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
 }
 
+.habit-item[data-category="Health"]::before { background: #22c55e; }
+.habit-item[data-category="Learning"]::before { background: #3b82f6; }
+.habit-item[data-category="Mindfulness"]::before { background: #a855f7; }
+.habit-item[data-category="Productivity"]::before { background: #f59e0b; }
+.habit-item[data-category="Fitness"]::before { background: #ef4444; }
+
 .habit-check {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    border: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-    background: var(--bg-dark);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  background: var(--bg-surface);
 }
 
 .habit-check:hover {
-    border-color: var(--primary);
-    background: rgba(129, 140, 248, 0.08);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 .habit-check.completed {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: white;
-    box-shadow: 0 0 15px rgba(129, 140, 248, 0.4);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px var(--primary-glow);
+  animation: scaleIn 0.3s ease;
 }
+
+.habit-check.completed:hover {
+  box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+.habit-name {
+  font-size: 1rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1.3;
+}
+
+.habit-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  flex-wrap: wrap;
+}
+
+.habit-category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 10px;
+  border-radius: 100px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+}
+
+.habit-item[data-category="Health"] .habit-category { color: #22c55e; border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.08); }
+.habit-item[data-category="Learning"] .habit-category { color: #3b82f6; border-color: rgba(59,130,246,0.2); background: rgba(59,130,246,0.08); }
+.habit-item[data-category="Mindfulness"] .habit-category { color: #a855f7; border-color: rgba(168,85,247,0.2); background: rgba(168,85,247,0.08); }
+.habit-item[data-category="Productivity"] .habit-category { color: #f59e0b; border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.08); }
+.habit-item[data-category="Fitness"] .habit-category { color: #ef4444; border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.08); }
 
 .streak-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 16px;
-    background: rgba(129, 140, 248, 0.1);
-    color: var(--primary);
-    border-radius: 24px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    border: 1px solid rgba(129, 140, 248, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));
+  color: var(--primary);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* Progress Ring */
+.habit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+.habit-item:hover .delete-btn { opacity: 1; }
+
+.delete-btn:hover {
+  color: var(--accent);
+  background: rgba(244, 63, 94, 0.1);
+}
+
+/* ==================== EMPTY STATE ==================== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  background: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.empty-state h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+/* ==================== STATS SECTION ==================== */
+.stats-section .card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: all var(--transition-slow);
+  margin-bottom: 20px;
+}
+
+.stats-section .card:last-child { margin-bottom: 0; }
+
+.stats-section .card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==================== PROGRESS RING ==================== */
+.progress-section { text-align: center; }
+
 .progress-container {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 30px;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 16px;
 }
 
-.progress-ring {
-    transform: rotate(-90deg);
-}
+.progress-ring { transform: rotate(-90deg); }
+
+.progress-ring-bg { stroke: var(--border-light); }
 
 .progress-ring-circle {
-    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 6px var(--primary-glow));
 }
 
 .progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .progress-text span {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-main);
-    letter-spacing: -1px;
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -1px;
 }
 
-/* Form Styles */
-.form-group {
-    margin-bottom: 24px;
+.progress-text small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+#progress-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-.form-input {
-    width: 100%;
-    padding: 14px;
-    background: var(--bg-dark);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text-main);
-    font-family: inherit;
-    outline: none;
-    transition: var(--transition);
+/* ==================== ACHIEVEMENTS ==================== */
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.form-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  transition: all var(--transition);
 }
 
-/* Weekly Chart */
+.achievement-item.unlocked {
+  border-color: rgba(99,102,241,0.3);
+  background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(20,184,166,0.04));
+}
+
+.achievement-item.unlocked .achievement-icon {
+  filter: none;
+  opacity: 1;
+}
+
+.achievement-icon {
+  font-size: 1.5rem;
+  opacity: 0.4;
+  filter: grayscale(1);
+  transition: all var(--transition);
+}
+
+.achievement-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.achievement-item.locked .achievement-name {
+  color: var(--text-muted);
+}
+
+.achievement-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==================== WEEKLY CHART ==================== */
+.chart-section { }
+
 .weekly-chart {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    height: 180px;
-    padding-top: 30px;
-    gap: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 140px;
+  gap: 4px;
 }
 
 .chart-bar-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
 }
 
 .chart-bar {
-    width: 100%;
-    max-width: 16px;
-    background: linear-gradient(to top, var(--primary), var(--secondary));
-    border-radius: 8px;
-    transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0.2;
+  width: 100%;
+  max-width: 32px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 4px;
+  background: linear-gradient(180deg, var(--primary-light), var(--primary));
+  opacity: 0.25;
 }
 
 .chart-bar.active {
-    opacity: 1;
-    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+  opacity: 1;
+  box-shadow: 0 2px 12px var(--primary-glow);
 }
 
 .chart-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-/* Modal */
-#add-habit-modal {
-    backdrop-filter: blur(8px);
+.chart-bar-value {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  margin: 20px;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.modal .btn-primary { width: 100%; padding: 14px; }
+
+/* ==================== CONFETTI ==================== */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: confetti-fall 3s ease-in forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .dashboard-header { flex-direction: column; }
+  .dashboard-header h1 { font-size: 1.6rem; }
+
+  .card { padding: 20px; }
+  .habit-item { padding: 14px 16px; }
+  .habit-actions .delete-btn { opacity: 1; }
+
+  .modal { padding: 24px; margin: 16px; }
 }
