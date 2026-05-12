@@ -13,18 +13,48 @@ const addHabitBtn = document.getElementById('add-habit-btn');
 const addHabitModal = document.getElementById('add-habit-modal');
 const closeModal = document.getElementById('close-modal');
 const habitForm = document.getElementById('habit-form');
-function getTodayKey() {
-    const d = new Date();
-    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+function getTodayKey(d) {
+    const date = d || new Date();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${date.getFullYear()}-${mm}-${dd}`;
 }
 
 // Initialize App
 function init() {
+    migrateOldData();
     updateDateTime();
     renderHabits();
     updateProgress();
     renderWeeklyChart();
     setupEventListeners();
+}
+
+function migrateOldData() {
+    const key = 'habitflow_data';
+    const raw = localStorage.getItem(key);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    let changed = false;
+    data.forEach(h => {
+        if (!h.history) return;
+        h.history = h.history.map(d => {
+            const parts = d.split('-');
+            if (parts.length === 3 && parts[1].length === 1) {
+                changed = true;
+                const mm = String(Number(parts[1])).padStart(2, '0');
+                const dd = String(Number(parts[2])).padStart(2, '0');
+                return `${parts[0]}-${mm}-${dd}`;
+            }
+            return d;
+        });
+        if (h.lastCompletedDate && h.lastCompletedDate.split('-')[1].length === 1) {
+            changed = true;
+            const p = h.lastCompletedDate.split('-');
+            h.lastCompletedDate = `${p[0]}-${String(Number(p[1])).padStart(2, '0')}-${String(Number(p[2])).padStart(2, '0')}`;
+        }
+    });
+    if (changed) localStorage.setItem(key, JSON.stringify(data));
 }
 
 function updateDateTime() {
@@ -102,18 +132,19 @@ function toggleHabit(id) {
 }
 
 function calcStreak(habit) {
-    const dates = (habit.history || []).map(d => new Date(d));
-    if (dates.length === 0) return 0;
-    dates.sort((a, b) => b - a);
+    const sorted = (habit.history || []).map(d => new Date(d)).filter(d => !isNaN(d)).sort((a, b) => b - a);
+    if (sorted.length === 0) return 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    let streak = 0;
     let checkDate = new Date(today);
-    if (dates.some(d => d.getTime() === today.getTime()) || dates.some(d => d.getTime() === today.getTime() - 86400000)) {
-        while (dates.some(d => d.getTime() === checkDate.getTime())) {
-            streak++;
-            checkDate.setDate(checkDate.getDate() - 1);
-        }
+    const hasToday = sorted.some(d => d.getTime() === today.getTime());
+    const hasYesterday = sorted.some(d => d.getTime() === today.getTime() - 86400000);
+    if (!hasToday && !hasYesterday) return 0;
+    if (!hasToday && hasYesterday) checkDate.setDate(checkDate.getDate() - 1);
+    let streak = 0;
+    while (sorted.some(d => d.getTime() === checkDate.getTime())) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
     }
     return streak;
 }
@@ -157,7 +188,7 @@ function renderWeeklyChart() {
     for (let i = 6; i >= 0; i--) {
         const d = new Date(today);
         d.setDate(d.getDate() - i);
-        const dayKey = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+        const dayKey = getTodayKey(d);
         const dayName = days[d.getDay()];
         
         const total = habits.length;

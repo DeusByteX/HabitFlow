@@ -71,6 +71,11 @@
     background: var(--bg-dark);
 }
 
+.habit-check:hover {
+    border-color: var(--primary);
+    background: rgba(129, 140, 248, 0.08);
+}
+
 .habit-check.completed {
     background: var(--primary);
     border-color: var(--primary);
