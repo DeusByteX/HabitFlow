@@ -6,7 +6,7 @@
 (function() {
     // 1. Theme State Management
     const THEME_KEY = 'habitflow_theme';
-    const darkThemeClass = 'dark-theme';
+    const darkThemeClass = 'dark-mode';
     
     // Detect saved theme or system preference
     const getSavedTheme = () => localStorage.getItem(THEME_KEY);
@@ -14,10 +14,11 @@
     
     // Apply theme to document
     const applyTheme = (theme) => {
+        const target = document.body || document.documentElement;
         if (theme === 'dark') {
-            document.documentElement.classList.add(darkThemeClass);
+            target.classList.add(darkThemeClass);
         } else {
-            document.documentElement.classList.remove(darkThemeClass);
+            target.classList.remove(darkThemeClass);
         }
     };
 
@@ -29,7 +30,7 @@
 
     // 2. Toggle Logic
     window.toggleTheme = function() {
-        const isDark = document.documentElement.classList.contains(darkThemeClass);
+        const isDark = (document.body || document.documentElement).classList.contains(darkThemeClass);
         const newTheme = isDark ? 'light' : 'dark';
         
         applyTheme(newTheme);
@@ -45,17 +46,24 @@
     document.addEventListener('DOMContentLoaded', () => {
         const toggleButtons = document.querySelectorAll('.theme-toggle');
         
+        // Update theme label text
+        const updateLabels = () => {
+            const isDark = document.body.classList.contains(darkThemeClass);
+            document.querySelectorAll('.theme-label').forEach(label => {
+                label.textContent = isDark ? 'Dark' : 'Light';
+            });
+        };
+
         toggleButtons.forEach(btn => {
-            btn.innerHTML = `
-                <i data-lucide="sun" class="sun-icon" style="width:14px;height:14px;"></i>
-                <i data-lucide="moon" class="moon-icon" style="width:14px;height:14px;"></i>
-            `;
-            
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.toggleTheme();
+                updateLabels();
             });
         });
+
+        // Set initial label
+        updateLabels();
 
         if (window.lucide) {
             lucide.createIcons();
