@@ -6,7 +6,7 @@
   <title>HabitFlow | Meet the Developers</title>
   <meta name="description" content="Meet the talented developers behind HabitFlow — Aditya Gupta and Priti Gupta from KIIT University, Bhubaneswar.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M10 17l4 4 8-8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.2">
   <style>
     .dev-hero {
       padding: 140px 0 60px;
@@ -188,7 +188,12 @@
     @media (max-width: 900px) {
       .dev-grid { grid-template-columns: 1fr; max-width: 500px; }
     }
+    @media (max-width: 768px) {
+      .dev-hero { padding: 100px 0 40px; }
+      .dev-grid { gap: 24px; }
+    }
     @media (max-width: 480px) {
+      .dev-hero { padding: 80px 0 30px; }
       .dev-card { padding: 36px 24px; }
       .dev-avatar { width: 100px; height: 100px; font-size: 2rem; }
     }
@@ -216,8 +221,32 @@
           </div>
         </li>
       </ul>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-link">Home</a></li>
+      <li><a href="index.html#features" class="mobile-link">Features</a></li>
+      <li><a href="developers.html" class="mobile-link">Developers</a></li>
+    </ul>
+    <div class="mobile-menu-footer">
+      <div class="theme-toggle-container" style="justify-content: center; margin-bottom: 8px;">
+        <span class="theme-label" aria-live="polite">Light</span>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.803 5.197a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM6.788 18.273a.75.75 0 10-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM5.197 5.197a.75.75 0 000 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591a.75.75 0 00-1.06 0zM18.273 18.273a.75.75 0 000-1.06l-1.591-1.591a.75.75 0 10-1.06 1.061l1.591 1.591a.75.75 0 001.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/></svg>
+        </button>
+      </div>
+      <a href="tracker.html" class="btn btn-primary btn-block">Start Tracking Free</a>
+    </div>
+  </div>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
   <section class="dev-hero container animate-fade">
     <h1>Meet the <span class="text-gradient">Developers</span></h1>
@@ -233,7 +262,7 @@
           <div class="dev-avatar primary">AG</div>
           <div class="dev-name">Aditya Gupta</div>
           <div class="dev-handle">@DeusByteX</div>
-          <div class="dev-role">Full-Stack Developer &amp; Founder</div>
+          <div class="dev-role">Frontend Developer &amp; Founder</div>
           <div class="dev-university">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5"/></svg>
             KIIT University, Bhubaneswar
@@ -249,10 +278,10 @@
             <a href="https://github.com/DeusByteX" target="_blank" rel="noopener" class="social-link" title="GitHub">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             </a>
-            <a href="https://linkedin.com/in/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/aditya-gupta-0593b8368" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </a>
-            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-link" title="Instagram">
+            <a href="https://www.instagram.com/deusbytex?igsh=aHNjcDdkdTBocTRu" target="_blank" rel="noopener" class="social-link" title="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
           </div>
@@ -262,8 +291,8 @@
         <div class="dev-card secondary">
           <div class="dev-avatar secondary">PG</div>
           <div class="dev-name">Priti Gupta</div>
-          <div class="dev-handle">@PritiGupta</div>
-          <div class="dev-role">Frontend Developer &amp; Designer</div>
+          <div class="dev-handle">@pritigupta0422</div>
+          <div class="dev-role">Frontend Developer &amp; Co-Founder</div>
           <div class="dev-university">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5"/></svg>
             KIIT University, Bhubaneswar
@@ -276,13 +305,13 @@
             <span class="tech-tag">Figma</span>
           </div>
           <div class="dev-socials">
-            <a href="https://github.com/" target="_blank" rel="noopener" class="social-link" title="GitHub">
+            <a href="https://github.com/pritigupta0422" target="_blank" rel="noopener" class="social-link" title="GitHub">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             </a>
-            <a href="https://linkedin.com/in/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/priti-gupta-706675387?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </a>
-            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-link" title="Instagram">
+            <a href="https://www.instagram.com/backtobasis1?igsh=eGUwNjVtdGpiaTky" target="_blank" rel="noopener" class="social-link" title="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
           </div>

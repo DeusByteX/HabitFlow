@@ -6,7 +6,7 @@
   <title>HabitFlow — Build Better Habits with AI-Powered Coaching</title>
   <meta name="description" content="Join 2,800+ users transforming their lives with intelligent habit tracking, personalized AI guidance, and powerful streak monitoring.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M10 17l4 4 8-8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.2">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     .hero {
@@ -620,6 +620,21 @@
       .footer-grid { grid-template-columns: 1fr; }
       .newsletter-form { flex-direction: column; }
       .featured-logos { gap: 24px; }
+      .hero { padding: 100px 0 60px; }
+      .hero-preview { margin-top: 40px; }
+      .steps-grid { gap: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 80px 0 40px; }
+      .hero-actions .btn { padding: 12px 24px !important; font-size: 0.9rem !important; }
+      .hero-preview-img { border-radius: var(--radius-lg); }
+      .features-grid, .pricing-grid, .testimonials-grid, .steps-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+      .pricing-card { padding: 32px 20px; }
+      .testimonial-card { padding: 24px; }
     }
   </style>
 </head>
@@ -646,8 +661,32 @@
           </div>
         </li>
       </ul>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+    <ul class="mobile-nav-links">
+      <li><a href="#features" class="mobile-link">Features</a></li>
+      <li><a href="#pricing" class="mobile-link">Pricing</a></li>
+      <li><a href="developers.html" class="mobile-link">Developers</a></li>
+    </ul>
+    <div class="mobile-menu-footer">
+      <div class="theme-toggle-container" style="justify-content: center; margin-bottom: 8px;">
+        <span class="theme-label" aria-live="polite">Light</span>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.803 5.197a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM6.788 18.273a.75.75 0 10-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM5.197 5.197a.75.75 0 000 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591a.75.75 0 00-1.06 0zM18.273 18.273a.75.75 0 000-1.06l-1.591-1.591a.75.75 0 10-1.06 1.061l1.591 1.591a.75.75 0 001.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/></svg>
+        </button>
+      </div>
+      <a href="tracker.html" class="btn btn-primary btn-block">Start Tracking Free</a>
+    </div>
+  </div>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
   <header class="hero container animate-fade">
     <div class="hero-bg-glow"></div>

@@ -68,5 +68,45 @@
         if (window.lucide) {
             lucide.createIcons();
         }
+
+        // --- Mobile Menu Toggle logic ---
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        const drawer = document.getElementById('mobileMenuDrawer');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-menu-drawer .btn');
+
+        if (toggleBtn && drawer && overlay) {
+            const toggleMobileMenu = () => {
+                toggleBtn.classList.toggle('active');
+                drawer.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+            };
+
+            const closeMobileMenu = () => {
+                toggleBtn.classList.remove('active');
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+
+            overlay.addEventListener('click', closeMobileMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && drawer.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        }
     });
 })();
+

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HabitFlow | Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="tracker.css">
+  <link rel="stylesheet" href="style.css?v=1.2">
+  <link rel="stylesheet" href="tracker.css?v=1.2">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -29,8 +29,32 @@
           </div>
         </li>
       </ul>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-link">Home</a></li>
+      <li><a href="index.html#features" class="mobile-link">Features</a></li>
+      <li><a href="index.html#pricing" class="mobile-link">Pricing</a></li>
+      <li><a href="developers.html" class="mobile-link">Developers</a></li>
+    </ul>
+    <div class="mobile-menu-footer">
+      <div class="theme-toggle-container" style="justify-content: center; margin-bottom: 8px;">
+        <span class="theme-label" aria-live="polite">Light</span>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.803 5.197a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM6.788 18.273a.75.75 0 10-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.061l1.591-1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM5.197 5.197a.75.75 0 000 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591a.75.75 0 00-1.06 0zM18.273 18.273a.75.75 0 000-1.06l-1.591-1.591a.75.75 0 10-1.06 1.061l1.591 1.591a.75.75 0 001.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
   <main class="dashboard container">
     <header class="dashboard-header">
